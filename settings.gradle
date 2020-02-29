@@ -1,0 +1,2 @@
+rootProject.name='Magneto'
+include ':app'
