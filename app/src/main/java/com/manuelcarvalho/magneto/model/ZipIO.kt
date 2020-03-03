@@ -5,6 +5,9 @@ import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 
 
+//usage
+//val zipFile = File("path_to_your_zip_file")
+//file.unzip()
 //Obtained from https://stackoverflow.com/questions/3382996/how-to-unzip-files-programmatically-in-android/50990872#50990872
 data class ZipIO (val entry: ZipEntry, val output: File)
 

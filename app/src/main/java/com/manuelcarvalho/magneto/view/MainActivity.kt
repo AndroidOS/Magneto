@@ -7,8 +7,9 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.manuelcarvalho.magneto.R
+import com.manuelcarvalho.magneto.model.unzip
 import kotlinx.android.synthetic.main.activity_main.*
-
+import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,6 +18,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        val zipFile = File("path_to_your_zip_file")
+        zipFile.unzip()
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
