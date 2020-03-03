@@ -5,22 +5,32 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import com.manuelcarvalho.magneto.R
-import com.manuelcarvalho.magneto.model.unzip
+import com.manuelcarvalho.magneto.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.File
 
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: ListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        val zipFile = File("path_to_your_zip_file")
-        zipFile.unzip()
+        viewModel = ViewModelProviders.of(this)[ListViewModel::class.java]
+        viewModel.refresh()
+
+//        ViewModelProvider(
+//            this,
+//            ViewModelProvider.AndroidViewModelFactory(this.application)
+//        ).get(ListViewModel::class.java)
+
+//        val zipFile = File("path_to_your_zip_file")
+//        zipFile.unzip()
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
