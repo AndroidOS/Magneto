@@ -3,6 +3,7 @@ package com.manuelcarvalho.magneto.viewmodel
 import android.app.Application
 import android.util.Log
 import android.widget.Toast
+import androidx.lifecycle.MutableLiveData
 import com.manuelcarvalho.magneto.model.MagApiService
 import com.manuelcarvalho.magneto.model.MagnetoData
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,6 +18,8 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
     private val magService = MagApiService()
     private val disposable = CompositeDisposable()
 
+    val readings = MutableLiveData<List<Double>>()
+
     fun refresh() {
         fetchFromRemote()
     }
@@ -29,7 +32,12 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(object : DisposableSingleObserver<MagnetoData>() {
                     override fun onSuccess(magData: MagnetoData) {
-                        Log.d(TAG, "List size =  ${magData}")
+                        val values = magData.values?.get(0)?.values
+
+                        if (values != null) {
+                            createModel(values)
+                        }
+                        //Log.d(TAG, "List size =  ${magData.values}")
                         Toast.makeText(
                             getApplication(),
                             "Jobs retrieved from endpoint",
@@ -47,5 +55,17 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
 
                 })
         )
+    }
+
+    private fun createModel(values: List<Double?>) {
+        val i = values.size
+
+        if (i != null) {
+            for (n in 0..i) {
+                Log.d(TAG, " ${values.get(n)}")
+            }
+        }
+
+
     }
 }

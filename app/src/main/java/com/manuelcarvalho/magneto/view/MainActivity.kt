@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import com.manuelcarvalho.magneto.R
 import com.manuelcarvalho.magneto.viewmodel.ListViewModel
+import io.reactivex.plugins.RxJavaPlugins
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -20,6 +21,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        RxJavaPlugins.setErrorHandler { throwable: Throwable? -> }
 
         viewModel = ViewModelProviders.of(this)[ListViewModel::class.java]
         viewModel.refresh()
