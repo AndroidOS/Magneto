@@ -35,6 +35,8 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
                         val values = magData.values?.get(0)?.values
 
                         if (values != null) {
+                            readings.value = values
+                            createModel(values)
                             //readings.value = createModel(values)
                             Log.d(TAG, "List size =  ${readings.value?.size}")
                         }
@@ -58,7 +60,7 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
         )
     }
 
-    private fun createModel(values: List<Double?>): List<Double> {
+    private fun createModel(values: List<Double?>) {
         val i = values.size
         val localList = mutableListOf<Double>()
 
@@ -73,7 +75,7 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
             }
         }
         //Log.d(TAG, "list Size  ${localList.size}")
-        return localList
-
+        //return localList
+        readings.value = localList
     }
 }

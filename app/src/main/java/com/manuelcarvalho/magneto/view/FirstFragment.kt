@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.manuelcarvalho.magneto.R
+import com.manuelcarvalho.magneto.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.fragment_first.*
 
 /**
@@ -15,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_first.*
 class FirstFragment : Fragment() {
 
     private val magListAdapter = MagListAdapter(arrayListOf(1.0, 5.7, 6.9))
+    private lateinit var viewModel: ListViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -32,8 +36,26 @@ class FirstFragment : Fragment() {
             adapter = magListAdapter
         }
 
+        viewModel = activity?.run {
+            ViewModelProviders.of(this)[ListViewModel::class.java]
+        } ?: throw Exception("Invalid Activity")
+
+        viewModel.refresh()
+        observeViewModel()
+
 //        view.findViewById<Button>(R.id.button_first).setOnClickListener {
 //            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         //}
+    }
+
+    fun observeViewModel() {
+
+        viewModel.readings.observe(this, Observer { readings ->
+            readings?.let {
+                recyclerView.visibility = View.VISIBLE
+                magListAdapter.updateMaglist(readings)
+            }
+        })
+
     }
 }

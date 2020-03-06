@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.mag_item.view.*
 class MagListAdapter(val magList: ArrayList<Double>) :
     RecyclerView.Adapter<MagListAdapter.MagViewHolder>() {
 
-    fun updateGitlist(newGitJobsList: List<Double>) {
+    fun updateMaglist(newGitJobsList: List<Double>) {
         magList.clear()
         magList.addAll(newGitJobsList)
         notifyDataSetChanged()
