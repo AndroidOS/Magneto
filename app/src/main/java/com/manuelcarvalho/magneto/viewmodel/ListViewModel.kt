@@ -33,14 +33,14 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
                 .subscribeWith(object : DisposableSingleObserver<MagnetoData>() {
                     override fun onSuccess(magData: MagnetoData) {
                         val values = magData.values?.get(0)?.values
-
+                        //Log.d(TAG, "List size =  ${values}")
                         if (values != null) {
-                            readings.value = values
+                            //readings.value = values
                             createModel(values)
                             //readings.value = createModel(values)
-                            Log.d(TAG, "List size =  ${readings.value?.size}")
+                            //Log.d(TAG, "List size =  ${readings.value}")
                         }
-                        Log.d(TAG, "List size =  ${createModel(values!!)}")
+                        //Log.d(TAG, "List size =  ${createModel(values!!)}")
                         Toast.makeText(
                             getApplication(),
                             "samples retrieved from endpoint",
@@ -69,12 +69,12 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
                 //Log.d(TAG, " ${values.get(n)}")
                 val sample = values.get(n)?.toDouble()
                 if (sample != null) {
-                    //Log.d(TAG, "Add ${sample}")
+                    Log.d(TAG, "Add ${sample}")
                     localList.add(sample)
                 }
             }
         }
-        //Log.d(TAG, "list Size  ${localList.size}")
+        Log.d(TAG, "list Size  ${localList.size}")
         //return localList
         readings.value = localList
     }
