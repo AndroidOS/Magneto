@@ -40,7 +40,7 @@ android {
 
 }
 
-def retrofitVersion = '2.3.0'
+def retrofitVersion = '2.7.2'
 def rxJavaVersion = '2.1.1'
 def lifeCycleExtensionVersion = '2.1.0'
 def navVersion = '2.1.0'
@@ -69,10 +69,15 @@ dependencies {
 
     implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofitVersion"
+    implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0-RC8"
+
+//    implementation "io.reactivex.rxjava2:rxandroid:$rxJavaVersion"
+//    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofitVersion"
 
-    implementation "io.reactivex.rxjava2:rxandroid:$rxJavaVersion"
-    implementation "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
 
     implementation "androidx.lifecycle:lifecycle-extensions:$lifeCycleExtensionVersion"
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
