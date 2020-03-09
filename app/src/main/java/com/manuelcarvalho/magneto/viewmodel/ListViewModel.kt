@@ -36,10 +36,8 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
                         val values = magData.values?.get(0)?.values
                         //Log.d(TAG, "List size =  ${values}")
                         if (values != null) {
-                            //readings.value = values
-                            createModel(values)
-                            //readings.value = createModel(values)
-                            //Log.d(TAG, "List size =  ${readings.value}")
+                            readings.value = values
+                            
                         }
                         //Log.d(TAG, "List size =  ${createModel(values!!)}")
                         Toast.makeText(
@@ -59,38 +57,7 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
 
                 })
         )
-//        disposable.add(
-//            magService.getMagData()
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribeWith(object : DisposableSingleObserver<MagnetoData>() {
-//                    override fun onSuccess(magData: MagnetoData) {
-//                        val values = magData.values?.get(0)?.values
-//                        //Log.d(TAG, "List size =  ${values}")
-//                        if (values != null) {
-//                            //readings.value = values
-//                            createModel(values)
-//                            //readings.value = createModel(values)
-//                            //Log.d(TAG, "List size =  ${readings.value}")
-//                        }
-//                        //Log.d(TAG, "List size =  ${createModel(values!!)}")
-//                        Toast.makeText(
-//                            getApplication(),
-//                            "samples retrieved from endpoint",
-//                            Toast.LENGTH_SHORT
-//                        ).show()
-//
-//                        Log.d(TAG, "List size =  ${readings.value?.size}")
-//                    }
-//
-//                    override fun onError(e: Throwable) {
-//                        Log.d(TAG, " RxJava error")
-//                        //loading.value = false
-//                        e.printStackTrace()
-//                    }
-//
-//                })
-//        )
+
     }
 
     private fun createModel(values: List<Double?>) {
