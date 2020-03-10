@@ -39,10 +39,10 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
                         val values = magData.values?.get(0)?.values
                         storeQuakesLocally(magData)
                         //Log.d(TAG, "List size =  ${values}")
-                        if (values != null) {
-                            readings.value = values
-
-                        }
+//                        if (values != null) {
+//                            readings.value = values
+//
+//                        }
                         //Log.d(TAG, "List size =  ${createModel(values!!)}")
                         Toast.makeText(
                             getApplication(),
@@ -77,7 +77,25 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
                 ++i
             }
             Log.d(TAG, "Store result =  ${result}")
-            //fetchFromDatabase()
+            fetchFromDatabase()
+        }
+    }
+
+    private fun fetchFromDatabase() {
+
+        launch {
+            var list = mutableListOf<Double>()
+            val mags = MagDatabase(getApplication()).magDao().getAllReadings()
+            for (r in mags) {
+                list.add(r.reading)
+            }
+            readings.value = list
+
+            Toast.makeText(
+                getApplication(),
+                "Readings retrieved from database. ${mags.size} objects",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 
