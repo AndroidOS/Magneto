@@ -4,6 +4,7 @@ package com.manuelcarvalho.magneto.view
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
@@ -52,10 +53,33 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
+            R.id.action_about -> {
+                showDialogue()
+                return true
+            }
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    private fun showDialogue() {
+        val builder = AlertDialog.Builder(this@MainActivity)
+
+        // Set the alert dialog title
+        builder.setTitle("About Magneto")
+
+        // Display a message on alert dialog
+        builder.setMessage("Magneto was developed by Manuel carvalho")
+
+        builder.setNeutralButton("O.K") { _, _ ->
+
+        }
+
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+    }
+
 
 
 }
