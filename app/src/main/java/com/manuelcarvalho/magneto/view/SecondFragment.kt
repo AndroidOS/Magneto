@@ -4,17 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.jjoe64.graphview.GraphView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.manuelcarvalho.magneto.R
+import com.manuelcarvalho.magneto.viewmodel.ListViewModel
+import kotlinx.android.synthetic.main.fragment_second.*
 
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
 class SecondFragment : Fragment() {
+
+    private lateinit var viewModel: ListViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -27,11 +33,16 @@ class SecondFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = activity?.run {
+            ViewModelProviders.of(this)[ListViewModel::class.java]
+        } ?: throw Exception("Invalid Activity")
+
+        observeViewModel()
 //        view.findViewById<Button>(R.id.button_second).setOnClickListener {
 ////            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
 ////        }
 
-        val graph = view.findViewById(R.id.graph) as GraphView
+        // val graph = view.findViewById(R.id.graph) as GraphView
         val series: LineGraphSeries<DataPoint> = LineGraphSeries(
             arrayOf(
                 DataPoint(0.0, 1.0),
@@ -42,5 +53,18 @@ class SecondFragment : Fragment() {
             )
         )
         graph.addSeries(series)
+    }
+
+    private fun observeViewModel() {
+
+        viewModel.readings.observe(this, Observer { readings ->
+            readings?.let {
+
+
+                Toast.makeText(activity, "ViewModel canged", Toast.LENGTH_SHORT).show()
+
+
+            }
+        })
     }
 }
