@@ -60,11 +60,21 @@ class SecondFragment : Fragment() {
         viewModel.readings.observe(this, Observer { readings ->
             readings?.let {
 
-
+                generateData(it)
                 Toast.makeText(activity, "ViewModel canged", Toast.LENGTH_SHORT).show()
 
 
             }
         })
+    }
+
+    private fun generateData(readings: List<Double>) {
+        var readingsArray = Array<DataPoint>(readings.size) { DataPoint(0.0, 1.0) }
+        var index = 0
+        for (r in readings) {
+            readingsArray[index] = DataPoint(index.toDouble(), r)
+        }
+        val series: LineGraphSeries<DataPoint> = LineGraphSeries(readingsArray)
+        graph.addSeries(series)
     }
 }
