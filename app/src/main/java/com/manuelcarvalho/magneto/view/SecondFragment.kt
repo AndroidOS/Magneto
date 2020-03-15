@@ -1,6 +1,7 @@
 package com.manuelcarvalho.magneto.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +16,7 @@ import com.manuelcarvalho.magneto.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.fragment_second.*
 
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
+private const val TAG = "SecondFragment"
 class SecondFragment : Fragment() {
 
     private lateinit var viewModel: ListViewModel
@@ -72,9 +71,12 @@ class SecondFragment : Fragment() {
         var readingsArray = Array<DataPoint>(readings.size) { DataPoint(0.0, 1.0) }
         var index = 0
         for (r in readings) {
-            readingsArray[index] = DataPoint(index.toDouble(), r)
+            Log.d(TAG, " ${r}")
+            readingsArray[index] = DataPoint(index.toDouble(), r - 20564)
+            index++
         }
         val series: LineGraphSeries<DataPoint> = LineGraphSeries(readingsArray)
         graph.addSeries(series)
+
     }
 }
