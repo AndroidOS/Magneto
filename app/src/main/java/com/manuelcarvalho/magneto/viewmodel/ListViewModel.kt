@@ -38,12 +38,6 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
                     override fun onSuccess(magData: MagnetoData) {
                         val values = magData.values?.get(0)?.values
                         storeQuakesLocally(magData)
-                        //Log.d(TAG, "List size =  ${values}")
-//                        if (values != null) {
-//                            readings.value = values
-//
-//                        }
-                        //Log.d(TAG, "List size =  ${createModel(values!!)}")
                         Toast.makeText(
                             getApplication(),
                             "samples retrieved from endpoint",

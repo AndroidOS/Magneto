@@ -13,8 +13,8 @@ interface MagDao {
     @androidx.room.Query("SELECT * FROM mag")
     suspend fun getAllReadings(): List<Mag>
 
-    @androidx.room.Query("SELECT * FROM mag WHERE uuid = :quakeId")
-    suspend fun getReading(quakeId: Int): Mag
+    @androidx.room.Query("SELECT * FROM mag WHERE uuid = :magId")
+    suspend fun getReading(magId: Int): Mag
 
     @androidx.room.Query("DELETE FROM mag")
     suspend fun deleteAllReadings()
