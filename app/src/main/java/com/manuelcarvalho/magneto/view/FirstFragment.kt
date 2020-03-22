@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_first.*
  */
 class FirstFragment : Fragment() {
 
-    private val magListAdapter = MagListAdapter(arrayListOf(1.0, 5.7, 6.9))
+    private val magListAdapter = MagListAdapter(arrayListOf())
     private lateinit var viewModel: ListViewModel
 
     override fun onCreateView(
@@ -43,9 +43,7 @@ class FirstFragment : Fragment() {
         viewModel.refresh()
         observeViewModel()
 
-//        view.findViewById<Button>(R.id.button_first).setOnClickListener {
-//            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-//        }
+
     }
 
     fun observeViewModel() {
@@ -54,6 +52,13 @@ class FirstFragment : Fragment() {
             readings?.let {
                 recyclerView.visibility = View.VISIBLE
                 magListAdapter.updateMaglist(readings)
+            }
+        })
+
+        viewModel.loading.observe(this, Observer { isLoading ->
+            isLoading?.let {
+                loadingView.visibility = if (it) View.VISIBLE else View.GONE
+                
             }
         })
 

@@ -23,6 +23,7 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
     private val disposable = CompositeDisposable()
 
     val readings = MutableLiveData<List<Double>>()
+    val loading = MutableLiveData<Boolean>()
 
     fun refresh() {
         fetchFromRemote()
@@ -48,6 +49,7 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
                     }
 
                     override fun onError(e: Throwable) {
+                        loading.value = false
                         Log.d(TAG, " RxJava error")
                         //loading.value = false
                         e.printStackTrace()
@@ -71,6 +73,7 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
                 ++i
             }
             Log.d(TAG, "Store result =  ${result}")
+            loading.value = false
             fetchFromDatabase()
         }
     }
