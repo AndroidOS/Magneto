@@ -41,6 +41,12 @@ class FirstFragment : Fragment() {
         } ?: throw Exception("Invalid Activity")
 
         viewModel.refresh()
+
+        refreshLayout.setOnRefreshListener {
+            loadingView.visibility = View.VISIBLE
+            viewModel.refresh()
+            refreshLayout.isRefreshing = false
+        }
         observeViewModel()
 
 
@@ -58,7 +64,7 @@ class FirstFragment : Fragment() {
         viewModel.loading.observe(this, Observer { isLoading ->
             isLoading?.let {
                 loadingView.visibility = if (it) View.VISIBLE else View.GONE
-                
+
             }
         })
 
