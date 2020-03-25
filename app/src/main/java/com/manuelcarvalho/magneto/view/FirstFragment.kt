@@ -12,9 +12,7 @@ import com.manuelcarvalho.magneto.R
 import com.manuelcarvalho.magneto.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.fragment_first.*
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
+
 class FirstFragment : Fragment() {
 
     private val magListAdapter = MagListAdapter(arrayListOf())

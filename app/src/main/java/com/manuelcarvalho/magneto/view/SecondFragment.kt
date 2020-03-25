@@ -37,11 +37,7 @@ class SecondFragment : Fragment() {
         } ?: throw Exception("Invalid Activity")
 
         observeViewModel()
-//        view.findViewById<Button>(R.id.button_second).setOnClickListener {
-////            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-////        }
 
-        // val graph = view.findViewById(R.id.graph) as GraphView
         val series: LineGraphSeries<DataPoint> = LineGraphSeries(
             arrayOf(
                 DataPoint(0.0, 1.0),

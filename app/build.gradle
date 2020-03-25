@@ -90,6 +90,9 @@ dependencies {
 
     implementation 'com.jjoe64:graphview:4.2.2'
 
+    //write pdf library
+    implementation 'com.itextpdf:itextg:5.5.10'
+
     }
 
     //apply plugin: 'com.google.gms.google-services'
