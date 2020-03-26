@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -25,6 +26,7 @@ import java.util.*
 
 //pdf methods from https://devofandroid.blogspot.com/2018/11/write-pdf-android-studio-kotlin.html
 
+private const val TAG = "MainActivity"
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: ListViewModel
@@ -55,7 +57,10 @@ class MainActivity : AppCompatActivity() {
                     == PackageManager.PERMISSION_DENIED
                 ) {
                     //permission was not granted, request it
-                    val permissions = arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    val permissions = arrayOf(
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE
+                    )
                     requestPermissions(permissions, STORAGE_CODE)
                 } else {
                     //permission already granted, call savePdf() method
@@ -63,7 +68,7 @@ class MainActivity : AppCompatActivity() {
                 }
             } else {
                 //system OS < marshmallow, call savePdf() method
-                savePdf()
+//                savePdf()
             }
         }
     }
@@ -122,6 +127,7 @@ class MainActivity : AppCompatActivity() {
                 .show()
         } catch (e: Exception) {
             //if anything goes wrong causing exception, get and show exception message
+            Log.d(TAG, e.message)
             Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
         }
     }
