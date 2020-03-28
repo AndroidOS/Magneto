@@ -37,10 +37,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
-        RxJavaPlugins.setErrorHandler { throwable: Throwable? -> }
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+            //system OS >= Marshmallow(6.0), check permission is enabled or not
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_DENIED
+            ) {
+                //permission was not granted, request it
+                val permissions = arrayOf(
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                )
+                requestPermissions(permissions, STORAGE_CODE)
+            }
 
-        viewModel = ViewModelProviders.of(this)[ListViewModel::class.java]
-        viewModel.refresh()
+            RxJavaPlugins.setErrorHandler { throwable: Throwable? -> }
+
+            viewModel = ViewModelProviders.of(this)[ListViewModel::class.java]
+            viewModel.refresh()
 
 //        ViewModelProvider(
 //            this,
@@ -50,26 +63,24 @@ class MainActivity : AppCompatActivity() {
 //        val zipFile = File("path_to_your_zip_file")
 //        zipFile.unzip()
 
-        fab.setOnClickListener { view ->
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
-                //system OS >= Marshmallow(6.0), check permission is enabled or not
-                if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    == PackageManager.PERMISSION_DENIED
-                ) {
-                    //permission was not granted, request it
-                    val permissions = arrayOf(
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                    )
-                    requestPermissions(permissions, STORAGE_CODE)
-                } else {
-                    //permission already granted, call savePdf() method
-                    savePdf()
-                }
-            } else {
-                //system OS < marshmallow, call savePdf() method
-//                savePdf()
+            fab.setOnClickListener { view ->
+                Log.d(TAG, "Fab pressed")
+//            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) {
+//                //system OS >= Marshmallow(6.0), check permission is enabled or not
+//                if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                    == PackageManager.PERMISSION_DENIED
+//                ) {
+//                    //permission was not granted, request it
+//                    val permissions = arrayOf(
+//                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+//                        Manifest.permission.READ_EXTERNAL_STORAGE
+//                    )
+//                    requestPermissions(permissions, STORAGE_CODE)
+//                } else {
+                //permission already granted, call savePdf() method
+                savePdf()
             }
+
         }
     }
 
@@ -94,6 +105,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun savePdf() {
+        Log.d(TAG, "savePDF")
         //create object of Document class
         val mDoc = Document()
         //pdf file name
