@@ -49,13 +49,13 @@ class SecondFragment : Fragment() {
         )
 
         // set manual X bounds
-        graph.viewport.isYAxisBoundsManual = true
-        graph.viewport.setMinY(-150.0)
-        graph.viewport.setMaxY(150.0)
-
-        graph.viewport.isXAxisBoundsManual = true
-        graph.viewport.setMinX(4.0)
-        graph.viewport.setMaxX(150.0)
+//        graph.viewport.isYAxisBoundsManual = true
+//        graph.viewport.setMinY(-150.0)
+//        graph.viewport.setMaxY(150.0)
+//
+//        graph.viewport.isXAxisBoundsManual = true
+//        graph.viewport.setMinX(4.0)
+//        graph.viewport.setMaxX(150.0)
 
         // enable scaling and scrolling
         graph.viewport.isScalable = true

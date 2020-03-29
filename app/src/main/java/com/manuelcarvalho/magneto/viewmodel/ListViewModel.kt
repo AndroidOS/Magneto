@@ -99,10 +99,11 @@ class ListViewModel(application: Application) : BaseViewModel(application) {
     private fun createReadingList(magData: MagnetoData): List<Mag> {
         var list = mutableListOf<Mag>()
         val b: List<Double>? = magData.values?.get(0)?.values
-
+        val dates: List<String> = magData.times!!
+        Log.d(TAG, "${dates}")
         for (c in 0 until (b?.size ?: 0)) {
             if (b?.get(c) != null) {
-                list.add(Mag((b.get(c))))
+                list.add(Mag((b.get(c)), dates.get(c)))
             }
         }
         return list
